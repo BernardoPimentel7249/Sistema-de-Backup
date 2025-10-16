@@ -7,8 +7,7 @@
 #include "../src/backup.hpp"
 
 
-TEST_CASE( "Testa backup", "[single-file]" ) {
-    char teste1[100] = "caminho";
-    REQUIRE( Backup(teste1) == 1 );
-} 
- 
+TEST_CASE("Coluna 1: arquivo Backup.parm inexistente gera erro", "[backup]") {
+    int resultado = Salvar("tests/fixtures/nao_existe.parm", "tests/pendrive_sim");
+    REQUIRE(resultado != 0);
+}

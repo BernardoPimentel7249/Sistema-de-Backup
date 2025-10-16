@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include "backup.hpp"
+#include <assert.h>
 
 /** 
  * @brief  faz o backup de um arquivo listado em Backup.parm
@@ -7,11 +7,11 @@
  * @param  caminho_backup_parm caminho do arquivo Backup.parm
  * @param  caminho_destino caminho do destino onde o arquivo de interesse será copiado
  * 
- *  Descrever o que a funcao faz
+ * Assertivas de entrada:
+ *      caminho_backup_parm != NULL
  */ 
 
-int Backup(char *caminho_backup_parm, char *caminho_destino)
-{
+int Salvar(const char *caminho_backup_parm, const char *caminho_destino) {
 	return 0; /*!< retorna zero para teste */ 
 }
 
@@ -24,7 +24,6 @@ int Backup(char *caminho_backup_parm, char *caminho_destino)
  *  Descrever o que a funcao faz
  */ 
 
-int Restaura(char *caminho_backup_parm, char *caminho_fonte)
-{
+int Restaurar(char *caminho_backup_parm, char *caminho_fonte) {
 	return 0; /*!< retorna zero para teste */ 
 }

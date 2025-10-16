@@ -1,5 +1,5 @@
-all: tests/testa_backup.cpp   src/backup.cpp src/backup.hpp backup.o
-	g++ -std=c++17 -Wall backup.o tests/testa_backup.cpp -o testa_backup
+all: tests/testa_backup.cpp src/backup.cpp src/backup.hpp backup.o
+	g++ -std=c++17 -Wall backup.o tests/testa_backup.cpp third_party/catch/catch_amalgamated.cpp -o testa_backup
 	./testa_backup
 	#use comentario se necessario
 

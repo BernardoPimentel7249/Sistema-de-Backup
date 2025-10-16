@@ -1,3 +1,3 @@
-int Backup(char *caminho_backup_parm, char *caminho_destino);
+int Salvar(const char *caminho_backup_parm, const char *caminho_destino);
 
-int Restaura(char *caminho_backup_parm, char *caminho_fonte);
+int Restaurar(const char *caminho_backup_parm, const char *caminho_fonte);
