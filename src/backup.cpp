@@ -1,5 +1,6 @@
 #include "backup.hpp"
-#include <assert.h>
+#include <cassert>
+#include <fstream>
 
 /** 
  * @brief  faz o backup de um arquivo listado em Backup.parm
@@ -12,7 +13,19 @@
  */ 
 
 int Salvar(const char *caminho_backup_parm, const char *caminho_destino) {
-	return 0; /*!< retorna zero para teste */ 
+    assert(caminho_backup_parm != nullptr);
+    assert(caminho_destino != nullptr);
+
+    FILE *arquivo = fopen(caminho_backup_parm, "r");
+    if (arquivo == NULL) {
+        return 1; // erro: arquivo não existe
+    }
+
+    // Aqui você pode fazer o que for necessário com o arquivo aberto.
+    // Exemplo: copiar para outro local (caminho_destino), etc.
+
+    fclose(arquivo);
+    return 0; // sucesso
 }
 
 /** 
