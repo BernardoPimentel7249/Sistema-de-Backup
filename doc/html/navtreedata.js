@@ -22,5 +22,25 @@
 
  @licend  The above is the entire license notice for the JavaScript code in this file
 */
-var menudata={children:[
-{text:"Main Page",url:"index.html"}]}
+var NAVTREE =
+[
+  [ "Sistema de Backup - TDD", "index.html", [
+    [ "Ficheiros", "files.html", [
+      [ "Lista de ficheiros", "files.html", "files_dup" ],
+      [ "Membros dos Ficheiros", "globals.html", [
+        [ "Tudo", "globals.html", null ],
+        [ "Funções", "globals_func.html", null ],
+        [ "Macros", "globals_defs.html", null ]
+      ] ]
+    ] ]
+  ] ]
+];
+
+var NAVTREEINDEX =
+[
+"backup_8cpp.html"
+];
+
+var SYNCONMSG = 'clique para desativar a sincronização do painel';
+var SYNCOFFMSG = 'clique para ativar a sincronização do painel';
+var LISTOFALLMEMBERS = 'Mostrar lista completa dos membros';
