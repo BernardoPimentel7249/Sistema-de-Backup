@@ -11,6 +11,7 @@
  * Assertivas de entrada:
  *      caminho_backup_parm != NULL
  *      caminho_destino != NULL
+ * 
  */ 
 
 int Salvar(const char *caminho_backup_parm, const char *caminho_destino) {
