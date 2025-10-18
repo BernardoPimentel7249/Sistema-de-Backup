@@ -28,3 +28,9 @@ TEST_CASE("Coluna 3", "[backup]") {
     int resultado = Salvar("tests/fixtures/backup.parm", "tests/fixtures/HD_simulado/backup_parm_teste5.txt");
     REQUIRE(resultado == 0);
 }
+
+TEST_CASE("Coluna 4", "[backup]") {
+    // arquivo no HD e no Pendrive com a mesma idade.
+    int resultado = Salvar("tests/fixtures/backup.parm", "tests/fixtures/HD_simulado/backup_parm_teste7.txt");
+    REQUIRE(resultado != 0); // fez nada
+}
