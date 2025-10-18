@@ -2,6 +2,8 @@
 #include <cassert>
 #include <fstream>
 #include <cstring>
+#include <sys/stat.h>
+#include <time.h>
 
 
 /** 
@@ -13,7 +15,7 @@
  * Assertivas de entrada:
  *      caminho_backup_parm != NULL
  *      caminho_destino != NULL
- *      caminho_no_pendrive != nullptr
+ *        assert(stat_destino.st_mtime > stat_pendrive.st_mtime)
  * 
  */ 
 
@@ -44,10 +46,24 @@ int Salvar(const char *caminho_backup_parm, const char *caminho_destino) {
     // copiar arquivo para o pendrive pt 1
 
     // Comparar idade do arquivo no pendrice com no HD:
-    //assert(caminho_no_pendrive != nullptr);
     FILE* arquivo_no_pendrive = fopen(caminho_no_pendrive, "rb");
-    if (arquivo_no_pendrive == NULL) {
-        return 1;
+    if (!(arquivo_no_pendrive == NULL)) {
+        struct stat stat_destino;
+        struct stat stat_pendrive;
+
+        // stats do caminho destino
+        if (stat(caminho_destino, &stat_destino) != 0) {
+            return 1;
+        }
+        // stats do caminho pendrive
+        if (stat(caminho_no_pendrive, &stat_pendrive) != 0) {
+            return 1;
+        }
+
+        // garantir q hd é mais velho
+        if (stat_destino.st_mtime > stat_pendrive.st_mtime) {
+            return 1;
+        }
     }
 
 
