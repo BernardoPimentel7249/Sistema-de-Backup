@@ -40,3 +40,9 @@ TEST_CASE("Coluna 5", "[backup]") {
     int resultado = Salvar("tests/fixtures/backup.parm", "tests/fixtures/HD_simulado/backup_parm_teste10.txt");
     REQUIRE(resultado != 0); // nenhuma ação feita
 }
+
+TEST_CASE("Coluna 6", "[backup]") {
+    // Restaura, mas arquivo ta no pendrive e não no HD
+    int resultado = Restaurar("tests/fixtures/backup.parm", "tests/fixtures/HD_simulado/backup_parm_teste11.txt");
+    REQUIRE(resultado != 0); // erro
+}
