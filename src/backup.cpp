@@ -3,6 +3,7 @@
 #include <fstream>
 #include <cstring>
 
+
 /** 
  * @brief  faz o backup de um arquivo listado em Backup.parm
  * @author Bernardo Pimentel
@@ -12,6 +13,7 @@
  * Assertivas de entrada:
  *      caminho_backup_parm != NULL
  *      caminho_destino != NULL
+ *      caminho_no_pendrive != nullptr
  * 
  */ 
 
@@ -29,7 +31,7 @@ int Salvar(const char *caminho_backup_parm, const char *caminho_destino) {
         return 1; // arquivo inexistente
     }
 
-    // copia arquivo para o pendrive inicio:
+    // copia arquivo para o pendrive pt 1:
     const char *nome_arquivo = strrchr(caminho_destino, '/');
     if (nome_arquivo == NULL) {
         nome_arquivo = caminho_destino;
@@ -37,10 +39,20 @@ int Salvar(const char *caminho_backup_parm, const char *caminho_destino) {
         nome_arquivo++; // pula a barra
     }
 
-    char caminho_saida[512];
-    snprintf(caminho_saida, sizeof(caminho_saida), "tests/fixtures/pendrive_simulado/%s", nome_arquivo);
+    char caminho_no_pendrive[512];
+    snprintf(caminho_no_pendrive, sizeof(caminho_no_pendrive), "tests/fixtures/pendrive_simulado/%s", nome_arquivo);
+    // copiar arquivo para o pendrive pt 1
 
-    FILE *arquivo_saida = fopen(caminho_saida, "wb");
+    // Comparar idade do arquivo no pendrice com no HD:
+    //assert(caminho_no_pendrive != nullptr);
+    FILE* arquivo_no_pendrive = fopen(caminho_no_pendrive, "rb");
+    if (arquivo_no_pendrive == NULL) {
+        return 1;
+    }
+
+
+    // copiar arquivo para o pendrive pt 2
+    FILE *arquivo_saida = fopen(caminho_no_pendrive, "wb");
     if (arquivo_saida == NULL) {
         fclose(arquivo_destino);
         fclose(backup_parm);
@@ -53,7 +65,7 @@ int Salvar(const char *caminho_backup_parm, const char *caminho_destino) {
     while ((bytes = fread(buffer, 1, sizeof(buffer), arquivo_destino)) > 0) {
         fwrite(buffer, 1, bytes, arquivo_saida);
     }
-    // copia arquivo para o pendrive fim.
+    // copia arquivo para o pendrive pt 2.
     
     fclose(arquivo_saida);
     fclose(arquivo_destino);
