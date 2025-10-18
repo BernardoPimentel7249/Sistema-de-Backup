@@ -17,11 +17,16 @@ test: testa_backup
 cpplint: tests/testa_backup.cpp   src/backup.cpp src/backup.hpp
 	cpplint   --exclude=catch_amalgamated.hpp  *.*
 	
-gcov: tests/testa_backup.cpp   src/backup.cpp src/backup.hpp 
-	g++ -std=c++17 -Wall -fprofile-arcs -ftest-coverage -c src/backup.cpp
-	g++ -std=c++17 -Wall -fprofile-arcs -ftest-coverage backup.o tests/testa_backup.cpp -o testa_backup
+gcov: src/backup.cpp tests/testa_backup.cpp src/backup.hpp
+	rm -f src/*.gcno src/*.gcda
+	g++ -std=c++17 -Wall -fprofile-arcs -ftest-coverage -c src/backup.cpp -o src/backup.o
+	g++ -std=c++17 -Wall -fprofile-arcs -ftest-coverage -c tests/testa_backup.cpp -o tests/testa_backup.o
+	g++ -std=c++17 -Wall -fprofile-arcs -ftest-coverage -c third_party/catch/catch_amalgamated.cpp -o third_party/catch/catch_amalgamated.o
+	g++ -std=c++17 -Wall -fprofile-arcs -ftest-coverage src/backup.o tests/testa_backup.o third_party/catch/catch_amalgamated.o -o testa_backup
 	./testa_backup
-	gcov *.cpp	
+	gcov src/backup.cpp
+
+
 	 
 debug: tests/testa_backup.cpp   src/backup.cpp src/backup.hpp 
 	g++ -std=c++17 -Wall -g -c src/backup.cpp
