@@ -43,6 +43,6 @@ TEST_CASE("Coluna 5", "[backup]") {
 
 TEST_CASE("Coluna 6", "[backup]") {
     // Restaura, mas arquivo ta no pendrive e não no HD
-    int resultado = Restaurar("tests/fixtures/backup.parm", "tests/fixtures/HD_simulado/backup_parm_teste11.txt");
+    int resultado = Restaurar("tests/fixtures/backup.parm", "tests/fixtures/pendrive_simulado/backup_parm_teste11.txt");
     REQUIRE(resultado != 0); // erro
 }

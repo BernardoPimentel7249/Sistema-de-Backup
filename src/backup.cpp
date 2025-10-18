@@ -15,7 +15,7 @@
  * Assertivas de entrada:
  *      caminho_backup_parm != NULL
  *      caminho_destino != NULL
- *        assert(stat_destino.st_mtime > stat_pendrive.st_mtime)
+ *      assert(stat_destino.st_mtime > stat_pendrive.st_mtime)
  * 
  */ 
 
@@ -100,7 +100,9 @@ int Salvar(const char *caminho_backup_parm, const char *caminho_destino) {
  * @param  caminho_backup_parm caminho do arquivo Backup.parm
  * @param  caminho_fonte caminho do destino onde o arquivo de interesse será restaurado
  * 
- *  Descrever o que a funcao faz
+ *  Assertivas de entrada:
+ *      caminho_backup_parm != NULL
+ *      caminho_fonte != NULL
  */ 
 
 int Restaurar(const char *caminho_backup_parm, const char *caminho_fonte) {
@@ -120,6 +122,19 @@ int Restaurar(const char *caminho_backup_parm, const char *caminho_fonte) {
     // Aqui você pode fazer o que for necessário com o arquivo aberto.
     // Exemplo: copiar para outro local (caminho_destino), etc.
 
+    // copia arquivo para o HD pt 1:
+    const char *nome_arquivo = strrchr(caminho_fonte, '/');
+    if (nome_arquivo == NULL) {
+        nome_arquivo = caminho_fonte;
+    } else {
+        nome_arquivo++; // pula a barra
+    }
+
+    char caminho_no_HD[512];
+    snprintf(caminho_no_HD, sizeof(caminho_no_HD), "tests/fixtures/HD_simulado/%s", nome_arquivo);
+    // copiar arquivo para o HD pt 1
+
+    
     fclose(arquivo_fonte);
     fclose(backup_parm);
     return 0; // sucesso
