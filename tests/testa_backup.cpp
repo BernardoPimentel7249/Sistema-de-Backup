@@ -31,6 +31,12 @@ TEST_CASE("Coluna 3", "[backup]") {
 
 TEST_CASE("Coluna 4", "[backup]") {
     // arquivo no HD e no Pendrive com a mesma idade.
-    int resultado = Salvar("tests/fixtures/backup.parm", "tests/fixtures/HD_simulado/backup_parm_teste7.txt");
+    int resultado = Salvar("tests/fixtures/backup.parm", "tests/fixtures/HD_simulado/backup_parm_teste8.txt");
+    REQUIRE(resultado == 0); // nenhuma ação feita
+}
+
+TEST_CASE("Coluna 5", "[backup]") {
+    // arquivo no HD é menos antigo que o do pendrive.
+    int resultado = Salvar("tests/fixtures/backup.parm", "tests/fixtures/HD_simulado/backup_parm_teste10.txt");
     REQUIRE(resultado != 0); // nenhuma ação feita
 }

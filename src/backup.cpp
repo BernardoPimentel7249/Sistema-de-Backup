@@ -62,7 +62,9 @@ int Salvar(const char *caminho_backup_parm, const char *caminho_destino) {
 
         // garantir q hd é mais velho
         if (stat_destino.st_mtime > stat_pendrive.st_mtime) {
-            return 1;
+            return 1; // erro 
+        } else if (stat_destino.st_mtime == stat_pendrive.st_mtime) {
+            return 0; // fazer nada
         }
     }
 
