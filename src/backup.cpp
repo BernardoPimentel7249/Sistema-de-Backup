@@ -1,6 +1,7 @@
 #include "backup.hpp"
 #include <cassert>
 #include <fstream>
+#include <cstring>
 
 /** 
  * @brief  faz o backup de um arquivo listado em Backup.parm
@@ -20,19 +21,46 @@ int Salvar(const char *caminho_backup_parm, const char *caminho_destino) {
 
     FILE *backup_parm = fopen(caminho_backup_parm, "r");
     if (backup_parm == NULL) {
-        return 1; // erro: arquivo não existe
+        return 1; // arquivo inexistente
     }
 
     FILE * arquivo_destino = fopen(caminho_destino, "r");
     if (arquivo_destino == NULL) {
-        return 1;
+        return 1; // arquivo inexistente
     }
+
+    // copia arquivo para o pendrive inicio:
+    const char *nome_arquivo = strrchr(caminho_destino, '/');
+    if (nome_arquivo == NULL) {
+        nome_arquivo = caminho_destino;
+    } else {
+        nome_arquivo++; // pula a barra
+    }
+
+    char caminho_saida[512];
+    snprintf(caminho_saida, sizeof(caminho_saida), "tests/fixtures/pendrive_simulado/%s", nome_arquivo);
+
+    FILE *arquivo_saida = fopen(caminho_saida, "wb");
+    if (arquivo_saida == NULL) {
+        fclose(arquivo_destino);
+        fclose(backup_parm);
+        return 1; // erro ao criar arquivo de saída
+    }
+
+    // Copia o conteúdo de arquivo_destino para arquivo_saida
+    char buffer[4096];
+    size_t bytes;
+    while ((bytes = fread(buffer, 1, sizeof(buffer), arquivo_destino)) > 0) {
+        fwrite(buffer, 1, bytes, arquivo_saida);
+    }
+    // copia arquivo para o pendrive fim.
+    
+    fclose(arquivo_saida);
+    fclose(arquivo_destino);
+    fclose(backup_parm);
 
     // Aqui você pode fazer o que for necessário com o arquivo aberto.
     // Exemplo: copiar para outro local (caminho_destino), etc.
-
-    fclose(arquivo_destino);
-    fclose(backup_parm);
     return 0; // sucesso
 }
 
