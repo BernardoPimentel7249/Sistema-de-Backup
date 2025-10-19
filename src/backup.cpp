@@ -171,7 +171,7 @@ int Restaurar(const char *caminho_backup_parm, const char *caminho_fonte) {
     while ((bytes = fread(buffer, 1, sizeof(buffer), arquivo_fonte)) > 0) {
         fwrite(buffer, 1, bytes, arquivo_saida);
     }
-    // copia arquivo para o pendrive pt 2.
+    // copia arquivo para o HD pt 2.
     
     fclose(arquivo_saida);
     fclose(arquivo_fonte);
