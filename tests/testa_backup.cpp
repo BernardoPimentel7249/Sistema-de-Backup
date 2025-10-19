@@ -76,3 +76,9 @@ TEST_CASE("Coluna 11", "[backup]") {
     int resultado = Salvar("tests/fixtures/backup.parm", "tests/fixtures/pendrive_simulado/backup_parm_teste20.txt");
     REQUIRE(resultado == 0); // faz nada
 }
+
+TEST_CASE("Coluna 12", "[backup]") {
+    // restaura, mas o arquivo naõ existe
+    int resultado = Restaurar("tests/fixtures/backup.parm", "tests/fixtures/pendrive_simulado/abrakadabraalakazam.txt");
+    REQUIRE(resultado != 0); // erro
+}
