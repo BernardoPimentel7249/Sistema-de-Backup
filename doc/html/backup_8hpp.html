@@ -99,7 +99,7 @@ Funções</h2></td></tr>
 <tr class="memitem:a10acf6df475eccdda231cddc8f63dc85" id="r_a10acf6df475eccdda231cddc8f63dc85"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10acf6df475eccdda231cddc8f63dc85">Restaurar</a> (const char *caminho_backup_parm, const char *caminho_fonte)</td></tr>
 <tr class="memdesc:a10acf6df475eccdda231cddc8f63dc85"><td class="mdescLeft">&#160;</td><td class="mdescRight">restaura um arquivo listado em Backup.parm  <br /></td></tr>
 <tr class="memitem:a06427d53bb9b6812530bf9623e47ae3b" id="r_a06427d53bb9b6812530bf9623e47ae3b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a06427d53bb9b6812530bf9623e47ae3b">Salvar</a> (const char *caminho_backup_parm, const char *caminho_destino)</td></tr>
-<tr class="memdesc:a06427d53bb9b6812530bf9623e47ae3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">faz o backup de um arquivo listado em Backup.parm  <br /></td></tr>
+<tr class="memdesc:a06427d53bb9b6812530bf9623e47ae3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">restaura um arquivo listado em Backup.parm  <br /></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentação das funções</h2>
 <a id="a10acf6df475eccdda231cddc8f63dc85" name="a10acf6df475eccdda231cddc8f63dc85"></a>
@@ -126,11 +126,16 @@ Funções</h2></td></tr>
 <dl class="params"><dt>Parâmetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">caminho_backup_parm</td><td>caminho do arquivo Backup.parm </td></tr>
-    <tr><td class="paramname">caminho_fonte</td><td>caminho do destino onde o arquivo de interesse será restaurado</td></tr>
+    <tr><td class="paramname">caminho_fonte</td><td>caminho do destino onde o arquivo de interesse será restaurado </td></tr>
   </table>
   </dd>
 </dl>
-<p>Descrever o que a funcao faz </p>
+<dl class="section return"><dt>Retorna</dt><dd>int Código de status:<ul>
+<li><span class="tt">0</span> → sucesso ou nenhuma ação necessária (arquivos iguais);</li>
+<li><span class="tt">1</span> → erro (arquivo inexistente, falha ao abrir/criar, ou timestamps inconsistentes).</li>
+</ul>
+</dd></dl>
+<p>@assert -assertivas de entrada: caminho_backup_parm != nullptr caminho_fonte != nullptr -assertiva de saída: arquivo realmente criado no destino </p>
 
 </div>
 </div>
@@ -153,16 +158,21 @@ Funções</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>faz o backup de um arquivo listado em Backup.parm </p>
+<p>restaura um arquivo listado em Backup.parm </p>
 <dl class="section author"><dt>Autor</dt><dd>Bernardo Pimentel </dd></dl>
 <dl class="params"><dt>Parâmetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">caminho_backup_parm</td><td>caminho do arquivo Backup.parm </td></tr>
-    <tr><td class="paramname">caminho_destino</td><td>caminho do destino onde o arquivo de interesse será copiado</td></tr>
+    <tr><td class="paramname">caminho_fonte</td><td>caminho do destino onde o arquivo de interesse será restaurado </td></tr>
   </table>
   </dd>
 </dl>
-<p>Assertivas de entrada: caminho_backup_parm != NULL caminho_destino != NULL </p>
+<dl class="section return"><dt>Retorna</dt><dd>int Código de status:<ul>
+<li><span class="tt">0</span> → sucesso ou nenhuma ação necessária (arquivos iguais);</li>
+<li><span class="tt">1</span> → erro (arquivo inexistente, falha ao abrir/criar, ou timestamps inconsistentes).</li>
+</ul>
+</dd></dl>
+<p>@assert -assertivas de entrada: caminho_backup_parm != nullptr caminho_destino != nullptr -assertiva de saída: arquivo realmente criado no destino </p>
 
 </div>
 </div>
