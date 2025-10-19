@@ -162,7 +162,7 @@ int Restaurar(const char *caminho_backup_parm, const char *caminho_fonte) {
     if (arquivo_saida == NULL) {
         fclose(arquivo_fonte);
         fclose(backup_parm);
-        return 1; // erro ao criar arquivo de saída
+        return 1; // erro ao criar arquivo de saida
     }
 
     // Copia o conteúdo de arquivo_destino para arquivo_saida
