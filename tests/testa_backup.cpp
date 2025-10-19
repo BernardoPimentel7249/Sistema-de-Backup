@@ -58,3 +58,9 @@ TEST_CASE("Coluna 8", "[backup]") {
     int resultado = Restaurar("tests/fixtures/backup.parm", "tests/fixtures/pendrive_simulado/backup_parm_teste15.txt");
     REQUIRE(resultado == 0); // faz nada 
 }
+
+TEST_CASE("Coluna 9", "[backup]") {
+    // Restaura, arquivo nos dois mas pen drive mais antigo
+    int resultado = Restaurar("tests/fixtures/backup.parm", "tests/fixtures/pendrive_simulado/backup_parm_teste17.txt");
+    REQUIRE(resultado == 0); // pen drive para HD 
+}
