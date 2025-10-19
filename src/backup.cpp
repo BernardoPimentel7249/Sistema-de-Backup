@@ -157,7 +157,7 @@ int Restaurar(const char *caminho_backup_parm, const char *caminho_fonte) {
         }
     }
 
-    // copiar arquivo para o pendrive pt 2
+    // copiar arquivo para o HD pt 2
     FILE *arquivo_saida = fopen(caminho_no_HD, "wb");
     if (arquivo_saida == NULL) {
         fclose(arquivo_fonte);
