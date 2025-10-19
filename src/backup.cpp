@@ -134,7 +134,46 @@ int Restaurar(const char *caminho_backup_parm, const char *caminho_fonte) {
     snprintf(caminho_no_HD, sizeof(caminho_no_HD), "tests/fixtures/HD_simulado/%s", nome_arquivo);
     // copiar arquivo para o HD pt 1
 
+    // Comparar idade do arquivo no pendrice com no HD:
+    FILE* arquivo_no_HD = fopen(caminho_no_HD, "rb");
+    if (!(arquivo_no_HD == NULL)) {
+        struct stat stat_fonte;
+        struct stat stat_HD;
+
+        // stats do caminho destino
+        if (stat(caminho_fonte, &stat_fonte) != 0) {
+            return 1;
+        }
+        // stats do caminho pendrive
+        if (stat(caminho_no_HD, &stat_HD) != 0) {
+            return 1;
+        }
+
+        // garantir q hd é mais velho
+        if (stat_fonte.st_mtime < stat_HD.st_mtime) {
+            return 1; // erro 
+        } else if (stat_fonte.st_mtime == stat_HD.st_mtime) {
+            return 0; // fazer nada
+        }
+    }
+
+    // copiar arquivo para o pendrive pt 2
+    FILE *arquivo_saida = fopen(caminho_no_HD, "wb");
+    if (arquivo_saida == NULL) {
+        fclose(arquivo_fonte);
+        fclose(backup_parm);
+        return 1; // erro ao criar arquivo de saída
+    }
+
+    // Copia o conteúdo de arquivo_destino para arquivo_saida
+    char buffer[4096];
+    size_t bytes;
+    while ((bytes = fread(buffer, 1, sizeof(buffer), arquivo_fonte)) > 0) {
+        fwrite(buffer, 1, bytes, arquivo_saida);
+    }
+    // copia arquivo para o pendrive pt 2.
     
+    fclose(arquivo_saida);
     fclose(arquivo_fonte);
     fclose(backup_parm);
     return 0; // sucesso
