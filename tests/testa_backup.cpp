@@ -52,3 +52,9 @@ TEST_CASE("Coluna 7", "[backup]") {
     int resultado = Restaurar("tests/fixtures/backup.parm", "tests/fixtures/pendrive_simulado/backup_parm_teste13.txt");
     REQUIRE(resultado != 0); // erro
 }
+
+TEST_CASE("Coluna 8", "[backup]") {
+    // Restaura, arquivo nos dois mas idade igual
+    int resultado = Restaurar("tests/fixtures/backup.parm", "tests/fixtures/pendrive_simulado/backup_parm_teste15.txt");
+    REQUIRE(resultado == 0); // faz nada 
+}
