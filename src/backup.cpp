@@ -5,20 +5,6 @@
 #include <sys/stat.h>
 #include <time.h>
 
-
-/** 
- * @brief  faz o backup de um arquivo listado em Backup.parm
- * @author Bernardo Pimentel
- * @param  caminho_backup_parm caminho do arquivo Backup.parm
- * @param  caminho_destino caminho do destino onde o arquivo de interesse será copiado
- * 
- * Assertivas de entrada:
- *      caminho_backup_parm != NULL
- *      caminho_destino != NULL
- *      assert(stat_destino.st_mtime > stat_pendrive.st_mtime)
- * 
- */ 
-
 int Salvar(const char *caminho_backup_parm, const char *caminho_destino) {
     assert(caminho_backup_parm != nullptr);
     assert(caminho_destino != nullptr);
@@ -89,21 +75,11 @@ int Salvar(const char *caminho_backup_parm, const char *caminho_destino) {
     fclose(arquivo_destino);
     fclose(backup_parm);
 
-    // Aqui você pode fazer o que for necessário com o arquivo aberto.
-    // Exemplo: copiar para outro local (caminho_destino), etc.
+    struct stat stat_verificacao;
+    assert(stat(caminho_no_pendrive, &stat_verificacao) == 0);
+
     return 0; // sucesso
 }
-
-/** 
- * @brief  restaura um arquivo listado em Backup.parm
- * @author Bernardo Pimentel
- * @param  caminho_backup_parm caminho do arquivo Backup.parm
- * @param  caminho_fonte caminho do destino onde o arquivo de interesse será restaurado
- * 
- *  Assertivas de entrada:
- *      caminho_backup_parm != NULL
- *      caminho_fonte != NULL
- */ 
 
 int Restaurar(const char *caminho_backup_parm, const char *caminho_fonte) {
     assert(caminho_backup_parm != nullptr);
@@ -118,9 +94,6 @@ int Restaurar(const char *caminho_backup_parm, const char *caminho_fonte) {
     if (arquivo_fonte == NULL) {
         return 1;
     }
-
-    // Aqui você pode fazer o que for necessário com o arquivo aberto.
-    // Exemplo: copiar para outro local (caminho_destino), etc.
 
     // copia arquivo para o HD pt 1:
     const char *nome_arquivo = strrchr(caminho_fonte, '/');
@@ -149,7 +122,6 @@ int Restaurar(const char *caminho_backup_parm, const char *caminho_fonte) {
             return 1;
         }
 
-        // garantir q hd é mais velho
         if (stat_fonte.st_mtime < stat_HD.st_mtime) {
             return 1; // erro 
         } else if (stat_fonte.st_mtime == stat_HD.st_mtime) {
@@ -176,5 +148,8 @@ int Restaurar(const char *caminho_backup_parm, const char *caminho_fonte) {
     fclose(arquivo_saida);
     fclose(arquivo_fonte);
     fclose(backup_parm);
+
+    struct stat stat_verificacao;
+    assert(stat(caminho_no_HD, &stat_verificacao) == 0);
     return 0; // sucesso
 }
